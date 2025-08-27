@@ -40,6 +40,8 @@ const config = {
   resolve: {
     alias: {
       '@': resolve(__dirname, '.'),
+      '@General': resolve(__dirname, 'General'),
+      '@Portal': resolve(__dirname, 'Portal'),
     },
   },
 }
