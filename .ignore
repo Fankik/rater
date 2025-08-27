@@ -1,0 +1,28 @@
+# Symfony specific directories
+var/
+vendor/
+.env
+.env.local
+.env.*.local
+
+# Build directories
+public/bundles/
+public/build/
+public/assets/
+
+# Dependencies
+node_modules/
+
+# IDE files
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Cache and logs
+*.log
+.phpunit.cache/
