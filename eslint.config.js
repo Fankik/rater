@@ -9,7 +9,7 @@ import prettierConfig from 'eslint-config-prettier';
 
 export default [
   {
-    ignores: ['dist/**', 'node_modules/**', 'public/**', 'vendor/**', 'var/**', 'src/**'],
+    ignores: ['dist/**', 'node_modules/**', 'public/**', 'vendor/**', 'var/**', 'src/**', 'config/**'],
   },
   {
     files: ['assets/**/*.{ts,tsx}'],
