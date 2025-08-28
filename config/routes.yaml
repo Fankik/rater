@@ -1,5 +1,3 @@
-controllers:
-    resource:
-        path: ../src/UserInterface/Public/
-        namespace: App\UserInterface\Public
+public:
+    resource: ../src/UserInterface/Http/Public
     type: attribute

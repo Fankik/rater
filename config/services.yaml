@@ -5,6 +5,13 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
 
+# Import configuration files for different layers
+imports:
+    - { resource: application/application.yaml }
+    - { resource: domain/domain.yaml }
+    - { resource: infrastructure/infrastructure.yaml }
+    - { resource: user_interface/user_interface.yaml }
+
 services:
     # default configuration for services in *this* file
     _defaults:
@@ -15,6 +22,10 @@ services:
     # this creates a service per class whose id is the fully-qualified class name
     App\:
         resource: '../src/'
+        exclude:
+            - '../src/UserInterface/'
+            - '../src/Domain/'
+            - '../src/Infrastructure/'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
