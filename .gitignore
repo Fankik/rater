@@ -16,3 +16,14 @@
 ###< phpunit/phpunit ###
 
 /node_modules/
+
+# PHP CS Fixer
+.php-cs-fixer.cache
+
+# PHPStan
+phpstan.neon.dist
+
+###> friendsofphp/php-cs-fixer ###
+/.php-cs-fixer.php
+/.php-cs-fixer.cache
+###< friendsofphp/php-cs-fixer ###
