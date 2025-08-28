@@ -13,7 +13,7 @@ const router = createBrowserRouter([
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById('react-root')!).render(
   <RouterProvider
     router={router}
     fallbackElement={<Loading />}

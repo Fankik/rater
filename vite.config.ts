@@ -4,8 +4,6 @@ import svgrPlugin from 'vite-plugin-svgr';
 import symfonyPlugin from 'vite-plugin-symfony';
 
 const config = {
-  root: './assets',
-
   plugins: [
     react(),
     symfonyPlugin(),
@@ -20,12 +18,12 @@ const config = {
   base: '/build/',
 
   build: {
-    outDir: '../public/build',
+    outDir: './public/build',
     emptyOutDir: true,
 
     rollupOptions: {
       input: {
-        app: resolve(__dirname, 'main.tsx'),
+        app: resolve(__dirname, 'assets/main.tsx'),
       },
     },
 
@@ -40,11 +38,14 @@ const config = {
 
   resolve: {
     alias: {
-      '@': resolve(__dirname, '.'),
-      '@General': resolve(__dirname, 'General'),
-      '@Portal': resolve(__dirname, 'Portal'),
+      '@': resolve(__dirname, 'assets'),
+      '@General': resolve(__dirname, 'assets/General'),
+      '@Portal': resolve(__dirname, 'assets/Portal'),
     },
   },
+
+  // Указываем Vite использовать node_modules из корня
+  cacheDir: './node_modules/.vite',
 };
 
 export default config;

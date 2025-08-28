@@ -17,6 +17,9 @@
 
 /node_modules/
 
+# Vite build output
+/public/build/
+
 # PHP CS Fixer
 .php-cs-fixer.cache
 
