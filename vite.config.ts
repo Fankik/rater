@@ -1,19 +1,20 @@
-import { resolve } from 'path'
-import react from '@vitejs/plugin-react'
+import { resolve } from 'path';
+import react from '@vitejs/plugin-react';
 import svgrPlugin from 'vite-plugin-svgr';
-import symfonyPlugin from "vite-plugin-symfony";
-
+import symfonyPlugin from 'vite-plugin-symfony';
 
 const config = {
+  root: './assets',
+
   plugins: [
-      react(),
-      symfonyPlugin(),
-      svgrPlugin({
-          svgrOptions: {
-              icon: true,
-          },
-          include: '**/*.svg?react',
-      }),
+    react(),
+    symfonyPlugin(),
+    svgrPlugin({
+      svgrOptions: {
+        icon: true,
+      },
+      include: '**/*.svg?react',
+    }),
   ],
 
   base: '/build/',
@@ -34,7 +35,7 @@ const config = {
   server: {
     host: 'localhost',
     port: 5173,
-    origin: 'http://localhost:5173'
+    origin: 'http://localhost:5173',
   },
 
   resolve: {
@@ -44,6 +45,6 @@ const config = {
       '@Portal': resolve(__dirname, 'Portal'),
     },
   },
-}
+};
 
 export default config;
