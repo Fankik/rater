@@ -1,0 +1,17 @@
+parameters:
+    level: 6
+    paths:
+        - src
+        - tests
+    excludePaths:
+        - var/*
+        - vendor/*
+        - node_modules/*
+        - public/build/*
+        - assets/*
+    symfony:
+        containerXmlPath: var/cache/dev/App_KernelDevDebugContainer.xml
+    reportUnmatchedIgnoredErrors: false
+
+includes:
+    - vendor/phpstan/phpstan-symfony/extension.neon
