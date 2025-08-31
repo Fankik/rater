@@ -1,0 +1,106 @@
+services:
+    php:
+        build:
+            context: ./php
+            args:
+                USER_ID: ${USER_ID}
+                USER_NAME: ${USER_NAME}
+                GROUP_ID: ${GROUP_ID}
+                GROUP_NAME: ${GROUP_NAME}
+                XDEBUG_ON: ${XDEBUG_ON}
+                XDEBUG_MODE: ${XDEBUG_MODE}
+                XDEBUG_IDEKEY: ${XDEBUG_IDEKEY}
+                XDEBUG_PORT: ${XDEBUG_PORT}
+        container_name: rater_php
+        environment:
+            - PHP_IDE_CONFIG=serverName=${XDEBUG_TRIGGER}
+            - XDEBUG_TRIGGER=${XDEBUG_TRIGGER}
+        ports:
+            - 9000
+        networks:
+            - rater_network
+        extra_hosts:
+            - "host.docker.internal:host-gateway"
+        volumes:
+            - ../:/var/www/public
+            - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini
+
+    node:
+        build:
+            context: ./node
+            args:
+                USER_ID: ${USER_ID}
+                USER_NAME: ${USER_NAME}
+                GROUP_ID: ${GROUP_ID}
+                GROUP_NAME: ${GROUP_NAME}
+        container_name: rater_node
+        ports:
+            - 3000:3000
+        volumes:
+            - ../:/var/www/project
+        networks:
+            - rater_network
+
+    postgres:
+        image: postgres:14.3-alpine
+        container_name: rater_postgres
+        environment:
+            POSTGRES_USER: ${POSTGRES_USER}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+            POSTGRES_DB: ${POSTGRES_DB}
+        ports:
+            - "5430:5432"
+        networks:
+            - rater_network
+        volumes:
+            - postgres-data:/var/lib/postgresql/data/postgres-data:rw
+        command: >
+            postgres -c max_connections=1000
+                     -c shared_buffers=256MB
+                     -c effective_cache_size=768MB
+                     -c maintenance_work_mem=64MB
+                     -c checkpoint_completion_target=0.7
+                     -c wal_buffers=16MB
+                     -c default_statistics_target=100
+        healthcheck:
+            test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+            interval: 30s
+            timeout: 10s
+            retries: 5
+        restart: unless-stopped
+        tty: true
+        stdin_open: true
+
+    nginx:
+        build:
+            context: ./nginx
+            args:
+                USER_ID: ${USER_ID}
+                USER_NAME: ${USER_NAME}
+                GROUP_ID: ${GROUP_ID}
+                GROUP_NAME: ${GROUP_NAME}
+        container_name: rater_nginx
+        ports:
+            - 80:80
+        networks:
+            - rater_network
+        volumes:
+            - ../:/var/www/public
+            - ./nginx/sites:/etc/nginx/conf.d
+
+    adminer:
+        image: adminer
+        container_name: rater_adminer
+        restart: always
+        networks:
+            - rater_network
+        ports:
+            - "8080:8080"
+
+volumes:
+    postgres-data:
+
+networks:
+    rater_network:
+        external: true
+
