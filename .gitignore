@@ -16,6 +16,7 @@
 ###< phpunit/phpunit ###
 
 /node_modules/
+/docker/.env
 
 # Vite build output
 /public/build/
