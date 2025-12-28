@@ -104,4 +104,9 @@ final class ObjectManagerForPhpStan implements ObjectManager
     {
         return $this->managerRegistry->getManagerForClass($className) ?? $this->managerRegistry->getManager();
     }
+
+    public function isUninitializedObject(mixed $value): bool
+    {
+        return $this->getManagerForClass($value::class)->isUninitializedObject($value);
+    }
 }

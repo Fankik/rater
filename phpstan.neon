@@ -8,13 +8,18 @@ parameters:
         - tests
     excludePaths:
         - src/Infrastructure/CodeStyle/*
-        - deploy
     symfony:
-        container_xml_path: var/cache/dev/Infrastructure_KernelDevDebugContainer.xml
+        containerXmlPath: var/cache/dev/Infrastructure_KernelDevDebugContainer.xml
     doctrine:
         objectManagerLoader: tests/Utils/Services/PHPStan/object-manager.php
     additionalConstructors:
         - PHPUnit\Framework\TestCase::setUp
     reportUnmatchedIgnoredErrors: false
+
+includes:
+    - vendor/phpstan/phpstan-symfony/extension.neon
+    - vendor/phpstan/phpstan-doctrine/extension.neon
+    - vendor/phpstan/phpstan-phpunit/extension.neon
+
 rules:
     - Infrastructure\CodeStyle\PHPStan\MissingReadOnlyPropertyAssignRule

@@ -13,6 +13,8 @@ $kernel = new Kernel($_SERVER['APP_ENV'], (bool) $_SERVER['APP_DEBUG']);
 $kernel->boot();
 
 $managerRegistry = $kernel->getContainer()->get('doctrine');
+
+/** @phpstan-ignore-next-line */
 assert($managerRegistry instanceof ManagerRegistry);
 
 return new ObjectManagerForPhpStan($managerRegistry);

@@ -5,22 +5,22 @@ parameters:
         - name: Domain
           collectors:
               - type: directory
-                regex: /src/Domain/.*
+                value: /src/Domain/.*
 
         - name: Application
           collectors:
               - type: directory
-                regex: /src/Application/.*
+                value: /src/Application/.*
 
         - name: Infrastructure
           collectors:
               - type: directory
-                regex: /src/Infrastructure/.*
+                value: /src/Infrastructure/.*
 
         - name: UserInterface
           collectors:
               - type: directory
-                regex: /src/UserInterface/.*
+                value: /src/UserInterface/.*
 
     ruleset:
         Domain:
@@ -32,6 +32,3 @@ parameters:
         UserInterface:
             - Application
             - Domain
-
-    exclude_files:
-        - '#.*DebugAuthorizationService\.php$#' # exclude debug authorization service for development only
