@@ -1,0 +1,2 @@
+imports:
+    - { resource: message_bus.yaml }

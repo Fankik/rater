@@ -1,0 +1,14 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    _instanceof:
+        # Для классов, помеченных атрибутом AsMessageHandler
+        Symfony\Component\Messenger\Attribute\AsMessageHandler:
+            tags: ['messenger.message_handler']
+
+    Application\:
+        resource: '%kernel.project_dir%/src/Application'
+
