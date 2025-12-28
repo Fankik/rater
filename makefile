@@ -1,5 +1,7 @@
 .DEFAULT_GOAL := help
 
+.PHONY: php tests
+
 CURRENT_DIR = $(dir $(abspath $(firstword $(MAKEFILE_LIST))))
 DOCKER_FOLDER = $(CURRENT_DIR)/docker
 DOCKER_COMPOSE_DEFAULT_FILE = $(DOCKER_FOLDER)/docker-compose.yaml
@@ -27,40 +29,48 @@ endif
 help:
 	@grep -E '^[a-zA-Z_\.-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-38s\033[0m %s\n", $$1, $$2}'
 
-dc.build: ## Сбилдить docker образы
+build: ## Сбилдить docker образы
 	$(docker-compose-relative) build
 
-dc.up: ## Создать и запустить docker образы
+up: ## Создать и запустить docker образы
 	$(docker-compose-relative) up -d
 
-dc.start: ## Запустить docker образы
+start: ## Запустить docker образы
 	$(docker-compose-relative) start
 
-dc.down: ## Остановить и удалить docker образы
+down: ## Остановить и удалить docker образы
 	$(docker-compose-relative) down
 
-dc.stop: ## Остановить docker образы
+stop: ## Остановить docker образы
 	$(docker-compose-relative) stop
 
-dc.restart: ## Перезапустить docker образы
+restart: ## Перезапустить docker образы
 	$(docker-compose-relative) down
 	$(docker-compose-relative) up -d
 
-dc.rebuild: ## Полная пересборка контейнеров (удаление образов + сборка + запуск)
+rebuild: ## Полная пересборка контейнеров (удаление образов + сборка + запуск)
 	$(docker-compose-relative) down --rmi all --volumes --remove-orphans
 	$(docker-compose-relative) build --no-cache
 	$(docker-compose-relative) up -d
 
-dc.reset: ## Полная очистка Docker системы (ОСТОРОЖНО!)
+reset: ## Полная очистка Docker системы (ОСТОРОЖНО!)
 	$(docker-compose-relative) down --rmi all --volumes --remove-orphans
 	docker system prune -a --volumes -f
 
-dc.logs: ## Показать логи всех контейнеров
+logs: ## Показать логи всех контейнеров
 	$(docker-compose-relative) logs -f
 
-dc.ps: ## Показать статус контейнеров
+ps: ## Показать статус контейнеров
 	$(docker-compose-relative) ps
 
 composer.install: ## Запустить установку зависимостей composer
 	$(docker-compose-relative) exec -u1000 $(PHP_CONTAINER_NAME) composer install
 
+php: ## Зайти в контейнер php
+	$(docker-compose-relative) exec -it -u1000 $(PHP_CONTAINER_NAME) bash
+
+symfony.doctrine.migrate: ## Run doctrine migration in php container
+	$(docker-compose-relative) exec -u1000 $(PHP_CONTAINER_NAME) php bin/console doctrine:migrations:migrate
+
+tests: ## Запустить тесты
+	$(docker-compose-relative) exec -u1000 $(PHP_CONTAINER_NAME) php vendor/bin/paratest --runner=WrapperRunner

@@ -1,0 +1,45 @@
+# https://github.com/phpro/grumphp#configuration
+grumphp:
+    git_hook_variables:
+        EXEC_GRUMPHP_COMMAND: 'docker compose --project-directory docker exec -u1000 php'
+    process_timeout: 600
+    fixer:
+        enabled: false
+        fix_by_default: false
+    tasks:
+        phpstan:
+            memory_limit: 768M
+            use_grumphp_paths: false
+            configuration: phpstan.neon
+            metadata:
+                blocking: true
+                enabled: true
+                label: null
+                priority: 2
+                task: null
+        phpcs:
+            standard: phpcs_custom_ruleset.xml
+            whitelist_patterns:
+                - /^src\/(.*)/
+                - /^tests\/Application\/(.*)/
+                - /^tests\/Domain\/(.*)/
+                - /^tests\/Infrastructure\/(.*)/
+                - /^tests\/TestCases\/(.*)/
+                - /^tests\/UserInterface\/(.*)/
+            metadata:
+                blocking: true
+                enabled: true
+                label: null
+                priority: 1
+                task: null
+        deptrac:
+            cache_file: var/cache/.deptrac.cache
+            depfile: deptrac.yaml
+            formatter: ~
+            output: ~
+            metadata:
+                blocking: true
+                enabled: true
+                label: null
+                priority: 0
+                task: null

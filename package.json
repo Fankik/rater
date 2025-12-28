@@ -61,9 +61,6 @@
   "lint-staged": {
     "**/*.{ts,tsx,js,jsx}": [
       "npm run lint"
-    ],
-    "**/*.php": [
-      "composer run code-quality"
     ]
   }
 }

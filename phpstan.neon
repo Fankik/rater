@@ -1,17 +1,20 @@
 parameters:
-    level: 6
+    scanDirectories:
+        - var/cache
+    level: 8
+    tmpDir: ./var/cache/phpstan
     paths:
         - src
         - tests
     excludePaths:
-        - var/*
-        - vendor/*
-        - node_modules/*
-        - public/build/*
-        - assets/*
+        - src/Infrastructure/CodeStyle/*
+        - deploy
     symfony:
-        containerXmlPath: var/cache/dev/App_KernelDevDebugContainer.xml
+        container_xml_path: var/cache/dev/Infrastructure_KernelDevDebugContainer.xml
+    doctrine:
+        objectManagerLoader: tests/Utils/Services/PHPStan/object-manager.php
+    additionalConstructors:
+        - PHPUnit\Framework\TestCase::setUp
     reportUnmatchedIgnoredErrors: false
-
-includes:
-    - vendor/phpstan/phpstan-symfony/extension.neon
+rules:
+    - Infrastructure\CodeStyle\PHPStan\MissingReadOnlyPropertyAssignRule
