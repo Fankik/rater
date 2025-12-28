@@ -11,7 +11,7 @@
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
-/phpunit.xml
+/phpunit.xml.dist
 /.phpunit.cache/
 ###< phpunit/phpunit ###
 
@@ -26,8 +26,3 @@
 
 # PHPStan
 phpstan.neon.dist
-
-###> friendsofphp/php-cs-fixer ###
-/.php-cs-fixer.php
-/.php-cs-fixer.cache
-###< friendsofphp/php-cs-fixer ###

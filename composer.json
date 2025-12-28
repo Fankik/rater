@@ -13,7 +13,6 @@
     "doctrine/orm": "^3.5.2",
     "pentatrion/vite-bundle": "^8.2.1",
     "phpdocumentor/reflection-docblock": "^5.6.3",
-    "phpstan/phpdoc-parser": "^2.2",
     "symfony/console": "7.3.*",
     "symfony/doctrine-messenger": "7.3.*",
     "symfony/dotenv": "7.3.*",
@@ -46,7 +45,11 @@
   },
   "config": {
     "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true,
+      "ergebnis/composer-normalize": true,
       "php-http/discovery": true,
+      "phpro/grumphp": true,
+      "phpstan/extension-installer": true,
       "symfony/flex": true,
       "symfony/runtime": true
     },
@@ -55,7 +58,7 @@
   },
   "autoload": {
     "psr-4": {
-      "App\\": "src/",
+      "Application\\": "src/Application/",
       "UserInterface\\": "src/UserInterface/",
       "Domain\\": "src/Domain/",
       "Infrastructure\\": "src/Infrastructure/"
@@ -63,7 +66,7 @@
   },
   "autoload-dev": {
     "psr-4": {
-      "App\\Tests\\": "tests/"
+      "Tests\\": "tests/"
     }
   },
   "replace": {
@@ -86,13 +89,6 @@
     ],
     "post-update-cmd": [
       "@auto-scripts"
-    ],
-    "php-cs-fixer": "php-cs-fixer fix --dry-run --diff",
-    "php-cs-fixer:fix": "php-cs-fixer fix",
-    "phpstan": "phpstan analyse",
-    "code-quality": [
-      "@php-cs-fixer",
-      "@phpstan"
     ]
   },
   "conflict": {
@@ -105,11 +101,17 @@
     }
   },
   "require-dev": {
-    "roave/security-advisories": "dev-latest",
-    "friendsofphp/php-cs-fixer": "^3.86",
-    "phpstan/phpstan": "^2.1.22",
-    "phpstan/phpstan-symfony": "^2.0.7",
+    "brianium/paratest": "^7.12",
+    "escapestudios/symfony2-coding-standard": "^3.18",
+    "phpro/grumphp": "^2.18",
+    "phpstan/phpdoc-parser": "^2.2",
+    "phpstan/phpstan": "^2.1.13",
+    "phpstan/phpstan-symfony": "^2.0.9",
     "phpunit/phpunit": "^12.3.7",
+    "qossmic/deptrac": "^2.0",
+    "roave/security-advisories": "dev-latest",
+    "slevomat/coding-standard": "^8.26",
+    "squizlabs/php_codesniffer": "^4.0",
     "symfony/browser-kit": "7.3.*",
     "symfony/css-selector": "7.3.*",
     "symfony/debug-bundle": "7.3.*",
