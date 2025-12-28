@@ -3,12 +3,14 @@
 <!-- https://phpunit.readthedocs.io/en/latest/configuration.html -->
 <phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
+         backupGlobals="false"
          colors="true"
-         failOnDeprecation="true"
-         failOnNotice="true"
-         failOnWarning="true"
          bootstrap="tests/bootstrap.php"
-         cacheDirectory=".phpunit.cache"
+         failOnRisky="true"
+         failOnWarning="true"
+         failOnSkipped="true"
+         failOnIncomplete="true"
+         displayDetailsOnTestsThatTriggerWarnings="true"
 >
     <php>
         <ini name="display_errors" value="1" />
@@ -18,9 +20,18 @@
     </php>
 
     <testsuites>
-        <testsuite name="Project Test Suite">
-            <directory>tests</directory>
+        <testsuite name="Application">
+            <directory>./tests/Application</directory>
         </testsuite>
+        <!--        <testsuite name="Domain">-->
+        <!--            <directory>./tests/Domain</directory>-->
+        <!--        </testsuite>-->
+        <!--        <testsuite name="Infrastructure">-->
+        <!--            <directory>./tests/Infrastructure</directory>-->
+        <!--        </testsuite>-->
+        <!--        <testsuite name="UserInterface">-->
+        <!--            <directory>./tests/UserInterface</directory>-->
+        <!--        </testsuite>-->
     </testsuites>
 
     <source ignoreSuppressionOfDeprecations="true"

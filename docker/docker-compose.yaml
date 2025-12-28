@@ -53,7 +53,7 @@ services:
         networks:
             - rater_network
         volumes:
-            - postgres-data:/var/lib/postgresql/data/postgres-data:rw
+            - postgres-data:/var/lib/postgresql/data/:rw
         command: >
             postgres -c max_connections=1000
                      -c shared_buffers=256MB
@@ -87,16 +87,6 @@ services:
         volumes:
             - ../:/var/www/public
             - ./nginx/sites:/etc/nginx/conf.d
-
-    adminer:
-        image: adminer
-        container_name: rater_adminer
-        restart: always
-        networks:
-            - rater_network
-        ports:
-            - "8080:8080"
-
 volumes:
     postgres-data:
 

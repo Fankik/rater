@@ -50,6 +50,7 @@ RUN docker-php-ext-install intl && \
     docker-php-ext-install gd && \
     docker-php-ext-install mysqli && \
     docker-php-ext-install pdo_mysql && \
+    docker-php-ext-install pdo_pgsql && \
     docker-php-ext-install soap && \
     docker-php-ext-install sockets && \
     docker-php-ext-install exif && \
