@@ -1,2 +1,3 @@
 imports:
     - { resource: message_bus.yaml }
+    - { resource: security.yaml }

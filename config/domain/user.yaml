@@ -1,0 +1,26 @@
+services:
+    _defaults:
+        public: true
+        autowire: true
+        autoconfigure: true
+
+    Domain\User\Repository\UserRepositoryInterface:
+        class: Infrastructure\User\Repository\UserRepository
+
+
+when@test:
+    services:
+        _defaults:
+            autoconfigure: true
+            autowire: true
+            public: true
+
+        Infrastructure\User\Repository\UserRepository: ~
+        Infrastructure\User\Repository\UserRepositoryStub: ~
+        Infrastructure\User\Repository\TestUserRepository: ~
+
+        Domain\User\Repository\UserRepositoryInterface:
+            class: Infrastructure\User\Repository\TestUserRepository
+            arguments:
+                $realRepository: '@Infrastructure\User\Repository\UserRepository'
+                $stubRepository: '@Infrastructure\User\Repository\UserRepositoryStub'

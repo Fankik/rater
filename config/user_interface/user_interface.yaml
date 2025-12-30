@@ -1,2 +1,4 @@
 imports:
-    - {resource: http/public.yaml}
+    - { resource: http/public.yaml }
+    - { resource: http/api.yaml }
+    - { resource: http/console.yaml }
