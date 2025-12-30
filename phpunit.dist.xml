@@ -23,15 +23,15 @@
         <testsuite name="Application">
             <directory>./tests/Application</directory>
         </testsuite>
-        <!--        <testsuite name="Domain">-->
-        <!--            <directory>./tests/Domain</directory>-->
-        <!--        </testsuite>-->
-        <!--        <testsuite name="Infrastructure">-->
-        <!--            <directory>./tests/Infrastructure</directory>-->
-        <!--        </testsuite>-->
-        <!--        <testsuite name="UserInterface">-->
-        <!--            <directory>./tests/UserInterface</directory>-->
-        <!--        </testsuite>-->
+        <testsuite name="Domain">
+            <directory>./tests/Domain</directory>
+        </testsuite>
+        <testsuite name="Infrastructure">
+            <directory>./tests/Infrastructure</directory>
+        </testsuite>
+        <testsuite name="UserInterface">
+            <directory>./tests/UserInterface</directory>
+        </testsuite>
     </testsuites>
 
     <source ignoreSuppressionOfDeprecations="true"
@@ -51,5 +51,6 @@
     </source>
 
     <extensions>
+        <bootstrap class="Zenstruck\Foundry\PHPUnit\FoundryExtension" />
     </extensions>
 </phpunit>
