@@ -11,8 +11,9 @@
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
-/phpunit.xml.dist
-/.phpunit.cache/
+phpunit.xml.dist
+.phpunit.cache
+.phpunit.result.cache
 ###< phpunit/phpunit ###
 
 /node_modules/
@@ -26,3 +27,7 @@
 
 # PHPStan
 phpstan.neon.dist
+
+###> lexik/jwt-authentication-bundle ###
+/config/jwt/*.pem
+###< lexik/jwt-authentication-bundle ###

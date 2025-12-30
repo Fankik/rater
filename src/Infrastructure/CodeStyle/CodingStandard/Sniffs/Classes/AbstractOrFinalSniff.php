@@ -38,8 +38,9 @@ final class AbstractOrFinalSniff implements Sniff
         $this->fixer = $phpcsFile->fixer;
         $this->position = $position;
         $finalAnnotations = AnnotationHelper::getAnnotations($file, $position, '@final');
+        $abstractAnnotations = AnnotationHelper::getAnnotations($file, $position, '@abstract');
 
-        if (!empty($finalAnnotations) || $file->findPrevious($this->tokens, $position)) {
+        if (!empty($abstractAnnotations) || !empty($finalAnnotations) || $file->findPrevious($this->tokens, $position)) {
             return;
         }
 

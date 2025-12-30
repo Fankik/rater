@@ -1,0 +1,8 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Application\Security\PasswordHasher\PasswordHasherInterface:
+        class: Application\Security\PasswordHasher\PasswordHasher

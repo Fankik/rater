@@ -1,0 +1,11 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Domain\Helpers\Validator\EntityDoesNotExistValidator\EntityDoesNotExistValidator:
+        tags: [ validator.constraint_validator ]
+
+    Domain\Helpers\Validator\EntityExistsValidator\EntityExistsValidator:
+        tags: [ validator.constraint_validator ]

@@ -1,3 +1,12 @@
-public:
-    resource: ../src/UserInterface/Http/Public
+api:
+    host: ['%api_domain%']
+    resource: ../src/UserInterface/Http/Api
     type: attribute
+
+api_login_check:
+    host: '%api_domain%'
+    path: /login
+
+api_token_refresh:
+    host: '%api_domain%'
+    path: /token/refresh

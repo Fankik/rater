@@ -5,16 +5,32 @@ doctrine:
             default:
                 url: '%env(resolve:DATABASE_URL)%'
                 profiling_collect_backtrace: '%kernel.debug%'
+        types:
+            user_roles: Infrastructure\User\Doctrine\Types\UserRolesDoctrineType
     orm:
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true
-        report_fields_where_declared: true
-        validate_xml_mapping: true
-        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
-        identity_generation_preferences:
-            Doctrine\DBAL\Platforms\PostgreSQLPlatform: identity
-        auto_mapping: true
-        mappings:
+        default_entity_manager: default
+        entity_managers:
+            default:
+                connection: default
+                report_fields_where_declared: true
+                validate_xml_mapping: true
+                naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+                auto_mapping: true
+                identity_generation_preferences:
+                    Doctrine\DBAL\Platforms\PostgreSQLPlatform: identity
+                mappings:
+                    RefreshToken:
+                        is_bundle: false
+                        dir: '%kernel.project_dir%/src/Domain/Security/Jwt'
+                        prefix: 'Domain\Security\Jwt'
+                        alias: RefreshToken
+                    User:
+                        is_bundle: false
+                        dir: '%kernel.project_dir%/src/Domain/User/Entity'
+                        prefix: 'Domain\User\Entity'
+                        alias: User
         controller_resolver:
             auto_mapping: false
 

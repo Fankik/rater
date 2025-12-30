@@ -7,6 +7,7 @@ use Domain\MessageBus\QueryBusInterface;
 use Infrastructure\MessageBus\TestCommandBus;
 use Infrastructure\MessageBus\TestQueryBus;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 abstract class FunctionalTestCase extends KernelTestCase
 {
@@ -34,5 +35,10 @@ abstract class FunctionalTestCase extends KernelTestCase
     final protected function getQueryBus(): TestQueryBus
     {
         return $this->getServiceByInterface(QueryBusInterface::class, TestQueryBus::class);
+    }
+
+    final protected function getValidator(): ValidatorInterface
+    {
+        return static::getContainer()->get(ValidatorInterface::class);
     }
 }

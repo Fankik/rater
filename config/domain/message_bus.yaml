@@ -10,6 +10,15 @@ services:
     Domain\MessageBus\QueryBusInterface:
         class: Infrastructure\MessageBus\QueryBus
 
+    _instanceof:
+        # Для классов, помеченных атрибутом AsMessageHandler
+        Symfony\Component\Messenger\Attribute\AsMessageHandler:
+            tags: ['messenger.message_handler']
+
+    Domain\:
+        resource: '%kernel.project_dir%/src/Domain'
+
+
 when@test:
     services:
         _defaults:
