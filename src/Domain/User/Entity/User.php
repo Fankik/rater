@@ -2,9 +2,12 @@
 
 namespace Domain\User\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Domain\Helpers\Entity\CreatedAtTrait;
 use Domain\Helpers\Entity\ModifiedAtTrait;
+use Domain\RateSpace\Entity\RateSpace;
 use Domain\User\Entity\ValueObjects\UserRoles;
 use Symfony\Component\Uid\Uuid;
 
@@ -33,6 +36,10 @@ class User
     #[ORM\Column(name: 'password', type: 'string', length: 64)]
     private string $hashedPassword;
 
+    /** @var Collection<int, RateSpace> */
+    #[ORM\OneToMany(targetEntity: RateSpace::class, mappedBy: 'user', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $rateSpaces;
+
     public function __construct(
         string $name,
         string $email,
@@ -45,6 +52,7 @@ class User
         $this->email = $email;
         $this->roles = $roles;
         $this->hashedPassword = $hashedPassword;
+        $this->rateSpaces = new ArrayCollection();
     }
 
     public function update(
@@ -80,5 +88,11 @@ class User
     public function getHashedPassword(): string
     {
         return $this->hashedPassword;
+    }
+
+    /** @return Collection<int, RateSpace> */
+    public function getRateSpaces(): Collection
+    {
+        return $this->rateSpaces;
     }
 }

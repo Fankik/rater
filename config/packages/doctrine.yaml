@@ -31,6 +31,11 @@ doctrine:
                         dir: '%kernel.project_dir%/src/Domain/User/Entity'
                         prefix: 'Domain\User\Entity'
                         alias: User
+                    RateSpace:
+                        is_bundle: false
+                        dir: '%kernel.project_dir%/src/Domain/RateSpace/Entity'
+                        prefix: 'Domain\RateSpace\Entity'
+                        alias: RateSpace
         controller_resolver:
             auto_mapping: false
 

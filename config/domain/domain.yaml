@@ -2,3 +2,4 @@ imports:
     - { resource: message_bus.yaml }
     - { resource: user.yaml }
     - { resource: helpers.yaml }
+    - { resource: rate_space.yaml }
