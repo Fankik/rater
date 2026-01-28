@@ -34,8 +34,8 @@ final class TestCommandBus implements CommandBusInterface
 
                 return;
             }
-
-            Assert::fail(sprintf('Command %s was not dispatched', $commandClassName));
         }
+
+        Assert::fail(sprintf('Command %s was not dispatched', $commandClassName));
     }
 }
