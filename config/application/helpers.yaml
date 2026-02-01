@@ -6,3 +6,7 @@ services:
 
     Application\Helpers\Slug\SlugGenerator:
         class: Application\Helpers\Slug\SlugGenerator
+
+    Application\Helpers\EventListeners\MigrationEventListener:
+        tags:
+            - { name: doctrine.event_listener, event: 'postGenerateSchema' }

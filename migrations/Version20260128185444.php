@@ -45,7 +45,6 @@ final class Version20260128185444 extends AbstractMigration
     */
     public function down(Schema $schema): void
     {
-        $this->addSql('CREATE SCHEMA public');
         $this->addSql('ALTER TABLE rate_spaces DROP CONSTRAINT FK_7FDC5513A76ED395');
         $this->addSql('DROP TABLE rate_spaces');
     }
