@@ -9,6 +9,7 @@ use Domain\MessageBus\CommandInterface;
 use Domain\MessageBus\QueryBusInterface;
 use Domain\RateSpace\Command\CreateRateSpaceCommand;
 use Domain\RateSpace\Entity\RateSpace;
+use Domain\RateSpace\Entity\ValueObjects\RateSpaceVisibleType;
 use Domain\User\Entity\User;
 use Domain\User\Query\GetUserByIdQuery;
 use Symfony\Component\Messenger\Attribute\AsMessageHandler;
@@ -30,6 +31,7 @@ final readonly class CreateRateSpaceUseCaseHandler implements CommandInterface
             title: $useCase->title,
             description: $useCase->description,
             slug: $useCase->slug ?? $this->generateSlug(),
+            visibleType: RateSpaceVisibleType::from($useCase->visibleType),
             user: $this->getUserById($useCase->userId),
         );
 

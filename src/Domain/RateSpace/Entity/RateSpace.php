@@ -6,6 +6,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Domain\Helpers\Entity\CreatedAtTrait;
 use Domain\Helpers\Entity\ModifiedAtTrait;
+use Domain\RateSpace\Entity\ValueObjects\RateSpaceVisibleType;
 use Domain\User\Entity\User;
 use Symfony\Component\Uid\Uuid;
 
@@ -34,10 +35,14 @@ class RateSpace
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'rateSpaces')]
     private User $user;
 
+    #[ORM\Column(type: Types::STRING, length: 32, nullable: false, enumType: RateSpaceVisibleType::class)]
+    private RateSpaceVisibleType $visibleType;
+
     public function __construct(
         string $title,
         string $description,
         string $slug,
+        RateSpaceVisibleType $visibleType,
         User $user,
         ?Uuid $id = null,
     ) {
@@ -46,6 +51,7 @@ class RateSpace
         $this->description = $description;
         $this->slug = $slug;
         $this->user = $user;
+        $this->visibleType = $visibleType;
     }
 
     public function getId(): Uuid
@@ -71,5 +77,10 @@ class RateSpace
     public function getUser(): User
     {
         return $this->user;
+    }
+
+    public function getVisibleType(): RateSpaceVisibleType
+    {
+        return $this->visibleType;
     }
 }

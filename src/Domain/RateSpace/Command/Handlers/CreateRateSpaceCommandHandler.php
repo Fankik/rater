@@ -21,6 +21,7 @@ final readonly class CreateRateSpaceCommandHandler
             title: $command->title,
             description: $command->description,
             slug: $command->slug,
+            visibleType: $command->visibleType,
             user: $command->user,
         );
 

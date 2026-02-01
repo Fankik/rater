@@ -6,6 +6,7 @@ use Domain\Helpers\Validator\EntityDoesNotExistValidator\EntityDoesNotExist;
 use Domain\Helpers\Validator\EntityExistsValidator\EntityExists;
 use Domain\MessageBus\CommandInterface;
 use Domain\RateSpace\Entity\RateSpace;
+use Domain\RateSpace\Entity\ValueObjects\RateSpaceVisibleType;
 use Domain\User\Entity\User;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -29,4 +30,10 @@ final class CreateRateSpaceUseCase implements CommandInterface
         message: 'Пользователь не найден.',
     )]
     public string $userId;
+
+    #[Assert\Choice(
+        callback: [RateSpaceVisibleType::class, 'values'],
+        message: 'Такой тип видимости не существует.',
+    )]
+    public string $visibleType;
 }

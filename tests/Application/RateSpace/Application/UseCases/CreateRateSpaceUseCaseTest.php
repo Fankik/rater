@@ -3,6 +3,7 @@
 namespace Tests\Application\RateSpace\Application\UseCases;
 
 use Application\RateSpace\UseCases\CreateRateSpaceUseCase;
+use Domain\RateSpace\Entity\ValueObjects\RateSpaceVisibleType;
 use Faker\Factory;
 use Faker\Generator;
 use Symfony\Component\Uid\Uuid;
@@ -80,6 +81,21 @@ final class CreateRateSpaceUseCaseTest extends FunctionalTestCase
         );
     }
 
+    public function testUseCaseMustBeValidIfRateSpaceWithInvalidVisibleType(): void
+    {
+        $useCase = $this->buildUseCase([
+            'visibleType' => 'invalid_visibility',
+        ]);
+
+        $errors = $this->getValidator()->validate($useCase);
+
+        self::assertCount(1, $errors);
+        self::assertThat(
+            $errors,
+            new ViolationsHasMessageAssertion('visibleType', 'Такой тип видимости не существует.'),
+        );
+    }
+
     /** @param array<mixed> $data */
     private function buildUseCase(array $data = []): CreateRateSpaceUseCase
     {
@@ -91,6 +107,7 @@ final class CreateRateSpaceUseCaseTest extends FunctionalTestCase
         $useCase->description = $data['description'] ?? 'description';
         $useCase->slug = $data['slug'] ?? $this->faker->slug();
         $useCase->userId = $data['userId'] ?? $user->getId()->toString();
+        $useCase->visibleType = $data['visibleType'] ?? RateSpaceVisibleType::Public->value;
 
         return $useCase;
     }
