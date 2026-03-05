@@ -7,6 +7,8 @@ services:
     Domain\RateSpace\Repository\RateSpaceRepositoryInterface:
         class: Infrastructure\RateSpace\Repository\RateSpaceRepository
 
+    Domain\RateSpace\Validator\RateSpaceVisible\RateSpaceVisibleAccessValidator:
+        tags: [ validator.constraint_validator ]
 
 when@test:
     services:
