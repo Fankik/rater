@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Domain\Helpers\Entity\CreatedAtTrait;
 use Domain\Helpers\Entity\ModifiedAtTrait;
+use Domain\RateItem\Entity\RateItem;
 use Domain\RateSpace\Entity\RateSpace;
 use Domain\User\Entity\ValueObjects\UserRoles;
 use Symfony\Component\Uid\Uuid;
@@ -40,6 +41,10 @@ class User
     #[ORM\OneToMany(targetEntity: RateSpace::class, mappedBy: 'user', cascade: ['persist', 'remove'], orphanRemoval: true)]
     private Collection $rateSpaces;
 
+    /** @var Collection<int, RateItem> */
+    #[ORM\OneToMany(targetEntity: RateItem::class, mappedBy: 'user', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $rateItems;
+
     public function __construct(
         string $name,
         string $email,
@@ -53,6 +58,7 @@ class User
         $this->roles = $roles;
         $this->hashedPassword = $hashedPassword;
         $this->rateSpaces = new ArrayCollection();
+        $this->rateItems = new ArrayCollection();
     }
 
     public function update(
@@ -94,5 +100,11 @@ class User
     public function getRateSpaces(): Collection
     {
         return $this->rateSpaces;
+    }
+
+    /** @return Collection<int, RateItem> */
+    public function getRateItems(): Collection
+    {
+        return $this->rateItems;
     }
 }

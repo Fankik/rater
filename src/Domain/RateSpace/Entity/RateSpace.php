@@ -2,10 +2,13 @@
 
 namespace Domain\RateSpace\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Domain\Helpers\Entity\CreatedAtTrait;
 use Domain\Helpers\Entity\ModifiedAtTrait;
+use Domain\RateItem\Entity\RateItem;
 use Domain\RateSpace\Entity\ValueObjects\RateSpaceVisibleType;
 use Domain\User\Entity\User;
 use Symfony\Component\Uid\Uuid;
@@ -38,6 +41,10 @@ class RateSpace
     #[ORM\Column(type: Types::STRING, length: 32, nullable: false, enumType: RateSpaceVisibleType::class)]
     private RateSpaceVisibleType $visibleType;
 
+    /** @var Collection<int, RateItem> $rateItems */
+    #[ORM\OneToMany(targetEntity: RateItem::class, mappedBy: 'rateSpace', cascade: ['persist', 'remove'], orphanRemoval: true)]
+    private Collection $rateItems;
+
     public function __construct(
         string $title,
         string $description,
@@ -52,6 +59,7 @@ class RateSpace
         $this->slug = $slug;
         $this->user = $user;
         $this->visibleType = $visibleType;
+        $this->rateItems = new ArrayCollection();
     }
 
     public function getId(): Uuid
@@ -82,5 +90,11 @@ class RateSpace
     public function getVisibleType(): RateSpaceVisibleType
     {
         return $this->visibleType;
+    }
+
+    /** @return Collection<int, RateItem> */
+    public function getRateItems(): Collection
+    {
+        return $this->rateItems;
     }
 }

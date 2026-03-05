@@ -1,0 +1,26 @@
+services:
+    _defaults:
+        public: true
+        autowire: true
+        autoconfigure: true
+
+    Domain\RateItem\Repository\RateItemRepositoryInterface:
+        class: Infrastructure\RateItem\Repository\RateItemRepository
+
+
+when@test:
+    services:
+        _defaults:
+            autoconfigure: true
+            autowire: true
+            public: true
+
+        Infrastructure\RateItem\Repository\RateItemRepository: ~
+        Infrastructure\RateItem\Repository\RateItemRepositoryStub: ~
+        Infrastructure\RateItem\Repository\TestRateItemRepository: ~
+
+        Domain\RateItem\Repository\RateItemRepositoryInterface:
+            class: Infrastructure\RateItem\Repository\TestRateItemRepository
+            arguments:
+                $realRepository: '@Infrastructure\RateItem\Repository\RateItemRepository'
+                $stubRepository: '@Infrastructure\RateItem\Repository\RateItemRepositoryStub'
