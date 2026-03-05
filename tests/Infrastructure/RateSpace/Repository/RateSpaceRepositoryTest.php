@@ -3,6 +3,7 @@
 namespace Tests\Infrastructure\RateSpace\Repository;
 
 use Domain\RateSpace\Entity\RateSpace;
+use Domain\RateSpace\Entity\ValueObjects\RateSpaceVisibleType;
 use Domain\RateSpace\Repository\RateSpaceRepositoryInterface;
 use Infrastructure\RateSpace\Repository\RateSpaceRepository;
 use Tests\Utils\Factory\RateSpace\RateSpaceWithRandomUserFactory;
@@ -28,6 +29,7 @@ final class RateSpaceRepositoryTest extends FunctionalTestCase
             title: 'Title',
             description: 'Description',
             slug: 'slug',
+            visibleType: RateSpaceVisibleType::Public,
             user: $user,
         );
 
@@ -42,6 +44,7 @@ final class RateSpaceRepositoryTest extends FunctionalTestCase
         self::assertSame($rateSpace->getTitle(), $findRateSpace->getTitle());
         self::assertSame($rateSpace->getDescription(), $findRateSpace->getDescription());
         self::assertSame($rateSpace->getSlug(), $findRateSpace->getSlug());
+        self::assertSame($rateSpace->getVisibleType(), $findRateSpace->getVisibleType());
     }
 
     public function testRateSpaceMustFindById(): void

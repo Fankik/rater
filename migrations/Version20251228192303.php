@@ -31,7 +31,6 @@ final class Version20251228192303 extends AbstractMigration
     /** @phpcsSuppress SlevomatCodingStandard.Functions.UnusedParameter.UnusedParameter */
     public function down(Schema $schema): void
     {
-        $this->addSql('CREATE SCHEMA public');
         $this->addSql('DROP TABLE refresh_tokens');
     }
 }

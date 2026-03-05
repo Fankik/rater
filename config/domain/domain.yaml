@@ -3,3 +3,4 @@ imports:
     - { resource: user.yaml }
     - { resource: helpers.yaml }
     - { resource: rate_space.yaml }
+    - { resource: rate_item.yaml }

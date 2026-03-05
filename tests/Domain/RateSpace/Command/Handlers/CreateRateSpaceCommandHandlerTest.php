@@ -4,6 +4,7 @@ namespace Tests\Domain\RateSpace\Command\Handlers;
 
 use Domain\RateSpace\Command\CreateRateSpaceCommand;
 use Domain\RateSpace\Entity\RateSpace;
+use Domain\RateSpace\Entity\ValueObjects\RateSpaceVisibleType;
 use Domain\RateSpace\Repository\RateSpaceRepositoryInterface;
 use Infrastructure\RateSpace\Repository\RateSpaceRepository;
 use Tests\Utils\Factory\User\UserFactory;
@@ -28,6 +29,7 @@ final class CreateRateSpaceCommandHandlerTest extends FunctionalTestCase
             title: 'Title',
             description: 'Description',
             slug: 'slug',
+            visibleType: RateSpaceVisibleType::Public,
             user: $user,
         );
 

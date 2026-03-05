@@ -3,6 +3,7 @@
 namespace Tests\Utils\Factory\RateSpace;
 
 use Domain\RateSpace\Entity\RateSpace;
+use Domain\RateSpace\Entity\ValueObjects\RateSpaceVisibleType;
 use Zenstruck\Foundry\Persistence\PersistentObjectFactory;
 
 /**
@@ -19,6 +20,7 @@ class RateSpaceFactory extends PersistentObjectFactory
             'title' => self::faker()->name(),
             'description' => self::faker()->text(),
             'slug' => self::faker()->slug(),
+            'visibleType' => RateSpaceVisibleType::Public,
         ];
     }
 

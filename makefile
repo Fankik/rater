@@ -69,8 +69,11 @@ composer.install: ## Запустить установку зависимост�
 php: ## Зайти в контейнер php
 	$(docker-compose-relative) exec -it -u1000 $(PHP_CONTAINER_NAME) bash
 
-symfony.doctrine.migrate: ## Run doctrine migration in php container
+doctrine.migrate: ## Запустить миграции
 	$(docker-compose-relative) exec -u1000 $(PHP_CONTAINER_NAME) php bin/console doctrine:migrations:migrate
+
+doctrine.diff: ## Запустить сравнение миграций
+	$(docker-compose-relative) exec -u1000 $(PHP_CONTAINER_NAME) php bin/console doctrine:migrations:diff
 
 tests: ## Запустить тесты
 	$(docker-compose-relative) exec -u1000 $(PHP_CONTAINER_NAME) php vendor/bin/paratest --runner=WrapperRunner

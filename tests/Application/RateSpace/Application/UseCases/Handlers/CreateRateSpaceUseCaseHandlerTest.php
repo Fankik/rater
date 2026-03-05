@@ -4,6 +4,7 @@ namespace Tests\Application\RateSpace\Application\UseCases\Handlers;
 
 use Application\RateSpace\UseCases\CreateRateSpaceUseCase;
 use Domain\RateSpace\Command\CreateRateSpaceCommand;
+use Domain\RateSpace\Entity\ValueObjects\RateSpaceVisibleType;
 use Faker\Factory;
 use Faker\Generator;
 use Tests\Utils\Factory\User\UserFactory;
@@ -40,6 +41,7 @@ final class CreateRateSpaceUseCaseHandlerTest extends FunctionalTestCase
         $useCase->description = 'description';
         $useCase->slug = $this->faker->slug();
         $useCase->userId = $user->getId()->toString();
+        $useCase->visibleType = RateSpaceVisibleType::Public->value;
 
         return $useCase;
     }
